@@ -75,7 +75,7 @@ const (
 
 // 给任何将要输出的对象加上颜色风格
 //
-// 结果： ESC [${stylus...}m${value.ToString()}ESC [0m
+// 结果： ESC[${stylus...}m${value.ToString()}ESC[0m
 func Style(value interface{}, stylus ...Stylus) string {
 	if stylus == nil || len(stylus) == 0 {
 		return convert(value)
