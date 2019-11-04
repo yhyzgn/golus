@@ -18,53 +18,98 @@ const (
 	ESC = rune(27)
 )
 
-// 字体颜色，背景颜色，字体风格
-type Stylus int
+// 字体颜色
+type FontColor int
+
+// 背景颜色
+type BackColor int
+
+// 字体风格
+type FontStyle int
 
 // 字体颜色
 const (
-	FontBlack     Stylus = 30 // 黑色
-	FontRed                   // 红色
-	FontGreen                 // 绿色
-	FontYellow                // 黄色
-	FontBlue                  // 蓝色
-	FontPurple                // 紫色
-	FontBlueGreen             // 蓝绿
-	FontWhite                 // 白色
+	FontBlack     FontColor = 30 + iota // 黑色
+	FontRed                             // 红色
+	FontGreen                           // 绿色
+	FontYellow                          // 黄色
+	FontBlue                            // 蓝色
+	FontPurple                          // 紫色
+	FontBlueGreen                       // 蓝绿
+	FontWhite                           // 白色
 )
 
 // 背景颜色
 const (
-	BackBlack     Stylus = 40 // 黑色
-	BackRed                   // 红色
-	BackGreen                 // 绿色
-	BackYellow                // 黄色
-	BackBlue                  // 蓝色
-	BackPurple                // 紫色
-	BackBlueGreen             // 蓝绿
-	BackWhite                 // 白色
+	BackBlack     BackColor = 40 + iota // 黑色
+	BackRed                             // 红色
+	BackGreen                           // 绿色
+	BackYellow                          // 黄色
+	BackBlue                            // 蓝色
+	BackPurple                          // 紫色
+	BackBlueGreen                       // 蓝绿
+	BackWhite                           // 白色
 )
 
 // 字体风格
 const (
-	StyleBold      Stylus = 1 // 粗体
-	StyleItalic    Stylus = 3 // 斜体
-	StyleUnderLine Stylus = 4 // 下划线
-	StyleReverse   Stylus = 7 // 反转
+	StyleBold      FontStyle = 1 // 粗体
+	StyleItalic    FontStyle = 3 // 斜体
+	StyleUnderLine FontStyle = 4 // 下划线
+	StyleReverse   FontStyle = 7 // 反转
 )
+
+type Stylus struct {
+	stylus []int
+}
+
+func NewStylus() *Stylus {
+	return &Stylus{
+		stylus: make([]int, 0),
+	}
+}
+
+// 字体颜色
+func (s *Stylus) SetFontColor(fontColor FontColor) *Stylus {
+	if fontColor >= FontBlack && fontColor <= FontWhite {
+		s.stylus = append(s.stylus, int(fontColor))
+	}
+	return s
+}
+
+// 背景颜色
+func (s *Stylus) SetBackColor(backColor BackColor) *Stylus {
+	if backColor >= BackBlack && backColor <= BackWhite {
+		s.stylus = append(s.stylus, int(backColor))
+	}
+	return s
+}
+
+// 字体风格
+func (s *Stylus) SetFontStyle(styles ...FontStyle) *Stylus {
+	if styles == nil || len(styles) == 0 {
+		return s
+	}
+	for _, item := range styles {
+		if item == StyleBold || item == StyleItalic || item == StyleUnderLine || item == StyleReverse {
+			s.stylus = append(s.stylus, int(item))
+		}
+	}
+	return s
+}
 
 // 给任何将要输出的对象加上颜色风格
 //
-// 结果： ESC[${stylus...}m${value.ToString()}ESC[0m
-func Style(value interface{}, stylus ...Stylus) string {
-	if stylus == nil || len(stylus) == 0 {
+// 结果： ESC[${fontColor;backColor;fontStyle}m${value.ToString()}ESC[0m
+func (s *Stylus) Apply(value interface{}) string {
+	if len(s.stylus) == 0 {
 		return convert(value)
 	}
-	lth := len(stylus)
+	lth := len(s.stylus)
 	var sb strings.Builder
 	sb.WriteRune(ESC)
 	sb.WriteString("[")
-	for index, item := range stylus {
+	for index, item := range s.stylus {
 		sb.WriteString(strconv.Itoa(int(item)))
 		if index < lth-1 {
 			sb.WriteString(";")
