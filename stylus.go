@@ -59,10 +59,12 @@ const (
 	StyleReverse   FontStyle = 7 // 反转
 )
 
+// 字体风格类
 type Stylus struct {
 	stylus []int
 }
 
+// 创建个风格对象
 func NewStylus() *Stylus {
 	return &Stylus{
 		stylus: make([]int, 0),
