@@ -103,9 +103,9 @@ func (s *Stylus) SetFontStyle(styles ...FontStyle) *Stylus {
 // 给任何将要输出的对象加上颜色风格
 //
 // 结果： ESC[${fontColor;backColor;fontStyle}m${value.ToString()}ESC[0m
-func (s *Stylus) Apply(value interface{}) string {
+func (s *Stylus) Apply(value ...interface{}) string {
 	if len(s.stylus) == 0 {
-		return convert(value)
+		return convert(value...)
 	}
 	lth := len(s.stylus)
 	var sb strings.Builder
@@ -119,13 +119,13 @@ func (s *Stylus) Apply(value interface{}) string {
 			sb.WriteString("m")
 		}
 	}
-	sb.WriteString(convert(value))
+	sb.WriteString(convert(value...))
 	sb.WriteRune(ESC)
 	sb.WriteString("[0m")
 	return sb.String()
 }
 
 // 将任何类型 ToString
-func convert(value interface{}) string {
-	return fmt.Sprint(value)
+func convert(value ...interface{}) string {
+	return fmt.Sprint(value...)
 }

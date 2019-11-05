@@ -35,6 +35,9 @@ func TestStyle(t *testing.T) {
 	a := NewStylus().Apply(test)
 	fmt.Println(a)
 
+	a = NewStylus().SetFontStyle(StyleBold).Apply(test, test)
+	fmt.Println(a)
+
 	b := NewStylus().SetFontColor(FontBlueGreen).Apply(test)
 	fmt.Println(b)
 
