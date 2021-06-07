@@ -35,18 +35,18 @@ func TestStyle(t *testing.T) {
 	a := New().Apply(test)
 	fmt.Println(a)
 
-	a = New().FontStyle(styleBold).Apply(test, test)
+	a = New().FontStyle(StyleBold).Apply(test, test)
 	fmt.Println(a)
 
-	b := New().FontColor(fontCyan).Apply(test)
+	b := New().FontColor(FontCyan).Apply(test)
 	fmt.Println(b)
 
-	c := New().BackColor(backCyan).Apply(test)
+	c := New().BackColor(BackCyan).FontColor(FontRed).Apply(test)
 	fmt.Println(c)
 
-	d := New().FontStyle(styleBold, styleItalic, styleUnderLine, styleReverse).Apply(test)
+	d := New().FontStyle(StyleBold, StyleItalic, StyleUnderLine, StyleReverse).Apply(test)
 	fmt.Println(d)
 
-	e := New().FontColor(fontCyan).BackColor(backYellow).FontStyle(styleBold, styleItalic, styleUnderLine).Apply(test)
+	e := New().FontColor(FontCyan).BackColor(BackYellow).FontStyle(StyleBold, StyleItalic, StyleUnderLine).Apply(test)
 	fmt.Println(e)
 }
