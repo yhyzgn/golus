@@ -34,34 +34,34 @@ type fontStyle uint8
 
 // 字体颜色
 const (
-	fontBlack   fontColor = 30 + iota // 黑色
-	fontRed                           // 红色
-	fontGreen                         // 绿色
-	fontYellow                        // 黄色
-	fontBlue                          // 蓝色
-	fontMagenta                       // 紫红色
-	fontCyan                          // 青蓝色
-	fontWhite                         // 白色
+	FontBlack   fontColor = 30 + iota // 黑色
+	FontRed                           // 红色
+	FontGreen                         // 绿色
+	FontYellow                        // 黄色
+	FontBlue                          // 蓝色
+	FontMagenta                       // 紫红色
+	FontCyan                          // 青蓝色
+	FontWhite                         // 白色
 )
 
 // 背景颜色
 const (
-	backBlack   backColor = 40 + iota // 黑色
-	backRed                           // 红色
-	backGreen                         // 绿色
-	backYellow                        // 黄色
-	backBlue                          // 蓝色
-	backMagenta                       // 紫红色
-	backCyan                          // 青蓝色
-	backWhite                         // 白色
+	BackBlack   backColor = 40 + iota // 黑色
+	BackRed                           // 红色
+	BackGreen                         // 绿色
+	BackYellow                        // 黄色
+	BackBlue                          // 蓝色
+	BackMagenta                       // 紫红色
+	BackCyan                          // 青蓝色
+	BackWhite                         // 白色
 )
 
 // 字体风格
 const (
-	styleBold      fontStyle = 1 // 粗体
-	styleItalic    fontStyle = 3 // 斜体
-	styleUnderLine fontStyle = 4 // 下划线
-	styleReverse   fontStyle = 7 // 反转
+	StyleBold      fontStyle = 1 // 粗体
+	StyleItalic    fontStyle = 3 // 斜体
+	StyleUnderLine fontStyle = 4 // 下划线
+	StyleReverse   fontStyle = 7 // 反转
 )
 
 // Stylus 字体风格类
@@ -78,7 +78,7 @@ func New() *Stylus {
 
 // FontColor 字体颜色
 func (s *Stylus) FontColor(fontColor fontColor) *Stylus {
-	if fontColor >= fontBlack && fontColor <= fontWhite {
+	if fontColor >= FontBlack && fontColor <= FontWhite {
 		s.stylus = append(s.stylus, uint8(fontColor))
 	}
 	return s
@@ -86,7 +86,7 @@ func (s *Stylus) FontColor(fontColor fontColor) *Stylus {
 
 // BackColor 背景颜色
 func (s *Stylus) BackColor(backColor backColor) *Stylus {
-	if backColor >= backBlack && backColor <= backWhite {
+	if backColor >= BackBlack && backColor <= BackWhite {
 		s.stylus = append(s.stylus, uint8(backColor))
 	}
 	return s
@@ -98,7 +98,7 @@ func (s *Stylus) FontStyle(styles ...fontStyle) *Stylus {
 		return s
 	}
 	for _, item := range styles {
-		if item == styleBold || item == styleItalic || item == styleUnderLine || item == styleReverse {
+		if item == StyleBold || item == StyleItalic || item == StyleUnderLine || item == StyleReverse {
 			s.stylus = append(s.stylus, uint8(item))
 		}
 	}
