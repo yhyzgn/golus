@@ -32,21 +32,21 @@ type Test struct {
 func TestStyle(t *testing.T) {
 	test := &Test{Info: "Test"}
 
-	a := NewStylus().Apply(test)
+	a := New().Apply(test)
 	fmt.Println(a)
 
-	a = NewStylus().SetFontStyle(StyleBold).Apply(test, test)
+	a = New().FontStyle(styleBold).Apply(test, test)
 	fmt.Println(a)
 
-	b := NewStylus().SetFontColor(FontBlueGreen).Apply(test)
+	b := New().FontColor(fontCyan).Apply(test)
 	fmt.Println(b)
 
-	c := NewStylus().SetBackColor(BackBlueGreen).Apply(test)
+	c := New().BackColor(backCyan).Apply(test)
 	fmt.Println(c)
 
-	d := NewStylus().SetFontStyle(StyleBold, StyleItalic, StyleUnderLine, StyleReverse).Apply(test)
+	d := New().FontStyle(styleBold, styleItalic, styleUnderLine, styleReverse).Apply(test)
 	fmt.Println(d)
 
-	e := NewStylus().SetFontColor(FontBlueGreen).SetBackColor(BackYellow).SetFontStyle(StyleBold, StyleItalic, StyleUnderLine).Apply(test)
+	e := New().FontColor(fontCyan).BackColor(backYellow).FontStyle(styleBold, styleItalic, styleUnderLine).Apply(test)
 	fmt.Println(e)
 }
