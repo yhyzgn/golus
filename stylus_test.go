@@ -35,7 +35,7 @@ func TestStyle(t *testing.T) {
 	a := New().Apply(test)
 	fmt.Println(a)
 
-	a = New().FontStyle(StyleBold).Apply(test, test)
+	a = New().FontColor(FontGreen).FontStyle(StyleBold).Apply(test, test)
 	fmt.Println(a)
 
 	b := New().FontColor(FontCyan).Apply(test)

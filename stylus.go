@@ -20,7 +20,9 @@ import (
 const (
 	// esc ASCII 码
 	// 也可用 esc 转义字符 \u001b 代替
-	esc = rune(27)
+	//esc = rune('\u001b')
+	//esc = rune(27')
+	esc = "\x1b"
 )
 
 // fontColor 字体颜色
@@ -114,7 +116,7 @@ func (s *Stylus) Apply(value ...interface{}) string {
 	}
 	lth := len(s.stylus)
 	var sb strings.Builder
-	sb.WriteRune(esc)
+	sb.WriteString(esc)
 	sb.WriteString("[")
 	for index, item := range s.stylus {
 		sb.WriteString(strconv.Itoa(int(item)))
@@ -125,7 +127,7 @@ func (s *Stylus) Apply(value ...interface{}) string {
 		}
 	}
 	sb.WriteString(sliceString(value...))
-	sb.WriteRune(esc)
+	sb.WriteString(esc)
 	sb.WriteString("[0m")
 	return sb.String()
 }
